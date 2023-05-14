@@ -5,6 +5,8 @@ import Footer from './components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
+import { Providers } from './redux/provider'
+
 export const metadata = {
   title: 'COZ-shopping',
   description: 'A Simple Shopping Application',
@@ -14,11 +16,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <Providers>
       <body className={inter.className}>
         <Header />
         <main>{children}</main>
         <Footer />
       </body>
+      </Providers>
     </html>
   )
 }
