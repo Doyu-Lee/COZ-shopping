@@ -2,8 +2,9 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import useDetectClose from "../hooks/useDetectClose";
+import { useGetProductByCountQuery } from "../redux/productApi"
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -40,13 +41,13 @@ const Menu = styled.div.attrs( () => ({role: 'dropdown-menu'}) )`
     border-bottom-color: white; 
   }
 
-  ${( {isDropped} ) =>
-    isDropped &&
-    css`
+    &.isdropped {
       opacity: 1;
       visibility: visible;
       transform: translate(-70%, -20px);
-    `};
+    };
+
+    
 `;
 
 const Ul = styled.ul`
@@ -58,14 +59,16 @@ margin-top: 18px;
 
 export default function DropdownMenu () {
   const [DropDownIsOpen, ImgRef, DropDownHandler] = useDetectClose();
-  
+  const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
+
   return (
     <div>
-      <DropdownContainer ref={ImgRef} >
+      {error || isLoading || isFetching ? (<p></p>) : data ? (
+  <DropdownContainer ref={ImgRef} >
 
         <Image onClick={DropDownHandler} src="/햄버거 아이콘.svg" width={34} height={24} alt="햄버거 메뉴 드롭다운 버튼" className="transition-all duration-300 hover:scale-110 transform hover:cursor-pointer" />
         
-        <Menu isDropped={DropDownIsOpen}>
+        <Menu className={ DropDownIsOpen ? "isdropped" : null }>
         <div className="hover:cursor-default mt-4">{`OOO `}님, 안녕하세요!</div>
           <Ul>
             <Link href="/product" onClick={DropDownHandler}><li className='flex mr-2 hover:text-myBlue hover:font-bold transition-all ease-in-out'><Image className='mr-3' src="/상품 아이콘.svg" width={20} height={20} alt="logo" />상품리스트 페이지</li></Link>
@@ -75,8 +78,10 @@ export default function DropdownMenu () {
 
       </DropdownContainer>
 
+) : null}
     </div>
   );
 };
+
 
 
