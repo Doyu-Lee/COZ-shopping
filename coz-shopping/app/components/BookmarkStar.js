@@ -10,8 +10,7 @@ const Img = styled.img`
   z-index: 999;
   right: 12px;
   bottom: 12px;
-  width: 24px;
-  height: 24px;
+
 
 `
 
@@ -23,8 +22,9 @@ export default function BookmarkStar () {
 
   return (
 
-    <Img src={isBookmarked ? '북마크-별표on.svg' : '북마크-별표off.svg'}
+    <Img src={isBookmarked ? '북마크별on.svg' : '북마크-별표off.svg'}
     onClick={handleBookmarkBtn}
-    alt="북마크"/>
+    alt="북마크"
+    />
   )
 }
