@@ -5,7 +5,7 @@ import MainList from "./components/MainList"
 import styled from "styled-components";
 
 const Container = styled.article`
-/* border: 1px solid green; */
+border: 1px solid green;
   height: calc(100vh - 59px - 70px);
   width: 100vw;
   display: flex;
@@ -13,23 +13,53 @@ const Container = styled.article`
   justify-content: center;
   padding: 44px;
   /* align-items: center; */
+
+  @media (max-height: 770px) {
+    overflow: scroll;
+    /* 2개의 아이템으로 보이도록 스타일 조정 */
+    position: relative;
+  }
 `;
 
 const ItemContainer = styled.section`
   border: 1px solid yellow;
   height: 45%;
-  margin-bottom: 30px;
+  margin: 20 0px;
   display: flex;
   flex-direction: column;
+
+  @media (max-height: 770px) {
+    height: 300px;
+    /* 2개의 아이템으로 보이도록 스타일 조정 */
+    position: absolute;
+    &:nth-child(1) {
+      top: 30px;
+      left: 0px;
+    }
+    &:nth-child(2) {
+      top: 400px;
+      left: 0px;
+    }
+
+  }
 
 
 `
 
 const ItemsBox = styled.div`
-  border: 1px solid blue; 
+  /* border: 1px solid blue;  */
   display: flex;
   justify-content: space-between;
   height: 80%;
+  
+
+
+   /* vw가 900px 이하일 때 추가적인 스타일 */
+  @media (max-width: 800px) {
+    /* 3개의 아이템으로 보이도록 스타일 조정 */
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
 
 `;
 
@@ -42,6 +72,9 @@ margin-bottom: 15px;
 width: 100%;
 height: 38px;
 
+@media (max-width: 800px) {
+  text-align: center;
+  }
 
 `;
 
