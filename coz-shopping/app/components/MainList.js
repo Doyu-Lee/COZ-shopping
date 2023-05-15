@@ -1,5 +1,6 @@
 
 import styled from "styled-components";
+import BookmarkStar from "./BookmarkStar"
 
 const Item = styled.div`
   /* border: 1px solid red; */
@@ -43,6 +44,7 @@ const ImgWrapper = styled.div`
   /* flex: 1.3; */
   overflow: hidden;
   height: 160px;
+  position: relative;
 `
 
 const Img = styled.img`
@@ -76,6 +78,7 @@ export default function MainList({product}) {
             <Item className="" key={product.id}>
                 <ImgWrapper>
                   <Img src={product.image_url} alt={product.title} />
+                  <BookmarkStar />
                 </ImgWrapper>
                 <DesWrapper>
                   <div>
@@ -97,6 +100,7 @@ export default function MainList({product}) {
             <Item className="" key={product.id}>
                 <ImgWrapper>
                   <Img src={product.brand_image_url} alt={product.brand_name} />
+                  <BookmarkStar />
                 </ImgWrapper>
                 <DesWrapper>
                   <div>
@@ -117,7 +121,9 @@ export default function MainList({product}) {
             <Item className="" key={product.id}>
                 <ImgWrapper>
                   <Img src={product.image_url} alt={product.title} />
+                  <BookmarkStar />
                 </ImgWrapper>
+                
                 <DesWrapper>
                   <div>
                     <h3 className="font-bold">{product.title}</h3>
@@ -134,6 +140,7 @@ export default function MainList({product}) {
             <Item className="" key={product.id}>
                 <ImgWrapper>
                   <Img src={product.image_url} alt={product.title} />
+                  <BookmarkStar />
                 </ImgWrapper>
                 <DesWrapper>
                   
