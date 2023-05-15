@@ -7,6 +7,11 @@ import { useState } from "react";
 const StyledImage = styled.img`
   transition: transform 0.3s;
   transform: ${({ isHovered }) => (isHovered ? 'scale(1.1)' : 'scale(1)')};
+
+  &:hover {
+  cursor: pointer; 
+  transform : scale(1.1) ;
+  }
 `;
 
 const MenuBox = styled.div`
