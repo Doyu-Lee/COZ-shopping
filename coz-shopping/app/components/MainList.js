@@ -8,16 +8,16 @@ const Item = styled.div`
   /* width: 23%; */
   display: flex;
   flex-direction: column;
-  margin-right: 2.5%;
+  margin-right: 4%;
 
   &:last-child {
     margin-right: 0;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     /* 3개의 아이템으로 보이도록 스타일 조정 */
     flex-basis: 30%;
-    &:nth-child(3) {
+    &:nth-child(4) {
     margin-right: 0;
   }
   }

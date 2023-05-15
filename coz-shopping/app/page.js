@@ -5,16 +5,16 @@ import MainList from "./components/MainList"
 import styled from "styled-components";
 
 const Container = styled.article`
-border: 1px solid green;
+/* border: 1px solid green; */
   height: calc(100vh - 59px - 70px);
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 44px;
+  justify-content: space-around;
+  padding: 30px 130px 0px 130px;
   /* align-items: center; */
 
-  @media (max-height: 770px) {
+  @media (max-height: 700px) or (max-width: 1000px)  {
     overflow: scroll;
     /* 2개의 아이템으로 보이도록 스타일 조정 */
     position: relative;
@@ -22,13 +22,14 @@ border: 1px solid green;
 `;
 
 const ItemContainer = styled.section`
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
+  flex: 1;
   height: 45%;
   margin: 20 0px;
   display: flex;
   flex-direction: column;
 
-  @media (max-height: 770px) {
+  @media (max-height: 700px) or (max-width: 1000px) {
     height: 300px;
     /* 2개의 아이템으로 보이도록 스타일 조정 */
     position: absolute;
@@ -37,13 +38,11 @@ const ItemContainer = styled.section`
       left: 0px;
     }
     &:nth-child(2) {
-      top: 400px;
+      top: 350px;
       left: 0px;
     }
 
   }
-
-
 `
 
 const ItemsBox = styled.div`
@@ -68,7 +67,7 @@ font-family: 'Inter';
 font-weight: 600;
 font-size: 24px;
 line-height: 38px;
-margin-bottom: 15px;
+margin-bottom: 11px;
 width: 100%;
 height: 38px;
 
