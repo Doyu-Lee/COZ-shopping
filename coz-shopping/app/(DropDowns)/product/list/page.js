@@ -3,7 +3,7 @@
 import PageList from "../../../components/PageList"
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../../redux/productApi"
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 
 const Wrapper = styled.div`
@@ -28,38 +28,54 @@ width: 100%;
 export default function Product() {
 
 const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
-console.log(data)
+// console.log(data)
 const containerRef = useRef(null);
 
-
 // 처음에 보여줄 상품 개수와 스크롤 할 때마다 추가로 보여줄 상품 개수
-const initialItemCount = 12;
-let loadMoreItemCount;
-const [visibleItems, setVisibleItems] = useState(initialItemCount);
+const [visibleItems, setVisibleItems] = useState(12);
+const [loadMoreItemCount, setLoadMoreItemCount] = useState(8);
 
-const handleScroll = () => {
+const handleScroll = useCallback(() => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight) {
     // 스크롤이 페이지의 가장 아래로 도달했을 때 순차적으로 가져오도록 함
+    console.log(`${loadMoreItemCount} 추가했어잉`)
     setVisibleItems(prevCount => prevCount + loadMoreItemCount);
   }
-};
+}, [loadMoreItemCount]);
+
 
 const handleResize = () => {
   // 현재 viewport 넓이를 가져옴
   const viewportWidth = window.innerWidth;
+  let newLoadMoreItemCount;
+  console.log(visibleItems)
 
   // viewport 넓이에 따라 보여줄 상품 개수 계산
-  if (viewportWidth >= 1000) {
-    loadMoreItemCount = 8; 
-  } else if (viewportWidth >= 700) {
-    loadMoreItemCount = 6; 
+  if (viewportWidth >= 1000 && visibleItems > 12) {   
+    newLoadMoreItemCount = 4 + (4 - visibleItems % 4); 
+    console.log(`4추가 ${newLoadMoreItemCount}`)
+  } else if (viewportWidth < 1000 && visibleItems > 12) {   
+    newLoadMoreItemCount = 3 + (3 - visibleItems % 3); 
+    console.log(`3추가 ${newLoadMoreItemCount}`)
+
+  } else if (viewportWidth < 700 && visibleItems > 12) {   
+    newLoadMoreItemCount = 2 + (2 - visibleItems % 2); 
+    console.log(`2추가 ${newLoadMoreItemCount}`)
+
   } else {
-    loadMoreItemCount = 4; 
+    newLoadMoreItemCount = 8; // 기본값 설정
+    console.log('해당 안됨 ') }
+
+    setLoadMoreItemCount(newLoadMoreItemCount);
+
+
   }
 
-  setVisibleItems(loadMoreItemCount);
-};
+
+// }, []);
+
+
 
 // useEffect로 초기 로드 및 리사이즈 이벤트 리스너 등록
 useEffect(() => {
@@ -77,20 +93,16 @@ useEffect(() => {
     container.addEventListener('wheel', handleWheel);
 
     // 리사이즈 이벤트 핸들러 등록
-    handleResize(); // 초기 로드 시 한 번 실행
-    window.addEventListener('resize', handleResize);
-
-  handleResize(); // 초기 로드 시 한 번 실행
+    handleResize();  
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleResize);
   
   return () => {
     container.removeEventListener('wheel', handleWheel);
-
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
   };
-}}, []);
+}}, [window.innerWidth, visibleItems, handleScroll]);
 
 
 
