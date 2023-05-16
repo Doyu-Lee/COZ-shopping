@@ -3,7 +3,7 @@
 import PageList from "../../../components/PageList"
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../../redux/productApi"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 const Wrapper = styled.div`
@@ -29,6 +29,8 @@ export default function Product() {
 
 const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
 console.log(data)
+const containerRef = useRef(null);
+
 
 // 처음에 보여줄 상품 개수와 스크롤 할 때마다 추가로 보여줄 상품 개수
 const initialItemCount = 12;
@@ -38,7 +40,7 @@ const [visibleItems, setVisibleItems] = useState(initialItemCount);
 const handleScroll = () => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight) {
-    // 스크롤이 페이지의 가장 아래로 도달했을 때
+    // 스크롤이 페이지의 가장 아래로 도달했을 때 순차적으로 가져오도록 함
     setVisibleItems(prevCount => prevCount + loadMoreItemCount);
   }
 };
@@ -49,11 +51,11 @@ const handleResize = () => {
 
   // viewport 넓이에 따라 보여줄 상품 개수 계산
   if (viewportWidth >= 1000) {
-    loadMoreItemCount = 8; // viewport 넓이가 1200px 이상일 때
+    loadMoreItemCount = 8; 
   } else if (viewportWidth >= 700) {
-    loadMoreItemCount = 6; // viewport 넓이가 768px 이상일 때
+    loadMoreItemCount = 6; 
   } else {
-    loadMoreItemCount = 4; // viewport 넓이가 768px 미만일 때
+    loadMoreItemCount = 4; 
   }
 
   setVisibleItems(loadMoreItemCount);
@@ -61,15 +63,34 @@ const handleResize = () => {
 
 // useEffect로 초기 로드 및 리사이즈 이벤트 리스너 등록
 useEffect(() => {
+  const container = containerRef.current;
+
+  if (container) {
+    // wheel 이벤트 핸들러 등록
+    const handleWheel = (event) => {
+      if (event.deltaY > 0) {
+        // 마우스 휠을 내릴 때 추가 데이터를 가져온다.
+        handleScroll();
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel);
+
+    // 리사이즈 이벤트 핸들러 등록
+    handleResize(); // 초기 로드 시 한 번 실행
+    window.addEventListener('resize', handleResize);
+
   handleResize(); // 초기 로드 시 한 번 실행
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleResize);
   
   return () => {
+    container.removeEventListener('wheel', handleWheel);
+
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
   };
-}, []);
+}}, []);
 
 
 
@@ -77,14 +98,14 @@ useEffect(() => {
 
   return (
 
-  <Section>
+  <Section  ref={containerRef}>
     {error ? (
       <p>Oh no, there was an error</p>
     ) : isLoading || isFetching ? (
       <p>Loading...</p>
     ) : data ? (
       
-      <Wrapper>
+      <Wrapper >
       {data.slice(0, visibleItems).map((product) => (
         // 상품 데이터 배열에서 보여줄 개수만큼 슬라이싱하여 렌더링
         
