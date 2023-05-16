@@ -13,10 +13,9 @@ const Container = styled.article`
   justify-content: space-around;
   padding: 30px 160px 0px 160px;
   /* align-items: center; */
+  overflow-y: scroll;
 
   @media (max-height: 700px) or (max-width: 1000px)  {
-    overflow: scroll;
-    /* 2개의 아이템으로 보이도록 스타일 조정 */
     position: relative;
   }
 `;
@@ -31,7 +30,6 @@ const ItemContainer = styled.section`
 
   @media (max-height: 700px) or (max-width: 1000px) {
     height: 300px;
-    /* 2개의 아이템으로 보이도록 스타일 조정 */
     position: absolute;
     &:nth-child(1) {
       top: 30px;
@@ -51,11 +49,7 @@ const ItemsBox = styled.div`
   justify-content: space-between;
   height: 80%;
   
-
-
-   /* vw가 900px 이하일 때 추가적인 스타일 */
   @media (max-width: 700px) {
-    /* 3개의 아이템으로 보이도록 스타일 조정 */
     flex-wrap: wrap;
     overflow: hidden;
   }
