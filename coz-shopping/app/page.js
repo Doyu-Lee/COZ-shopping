@@ -71,13 +71,14 @@ margin-bottom: 11px;
 width: 100%;
 height: 38px;
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   text-align: center;
+  margin-bottom: 20px;
   }
 
 `;
 
-export default function Home() {
+export default function MainPage() {
 
   // const { isLoading, isFetching, data, error } = useGetProductQuery(null);
   const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
@@ -100,14 +101,20 @@ export default function Home() {
         </ItemContainer>
       ) : null}
         
+        {error ? (
+        <p>Oh no, there was an error</p>
+      ) : isLoading || isFetching ? (
+        <p>Loading...</p>
+      ) : data ? (
         <ItemContainer>
           <H2>북마크 리스트</H2>
           <ItemsBox>
             {data.map((product) => (
-              <MainList key={product.name} product={product} />
+              <MainList key={product.id} product={product} />
             ))}
           </ItemsBox>
         </ItemContainer>
+      ) : null}
     </Container>
   );
 }
