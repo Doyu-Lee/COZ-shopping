@@ -15,12 +15,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className="noScroll">
       <Providers>
       {/* <body className={inter.className}> */}
         <body>
         <Header />
-        <main>{children}</main>
+        <main >{children}</main>
         <Footer />
       </body>
       </Providers>

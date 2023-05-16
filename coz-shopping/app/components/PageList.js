@@ -9,7 +9,7 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 4%;
-  margin-top: 20px;
+  margin-bottom: 20px;
 
 
   @media (min-width: 1001px) {
@@ -127,7 +127,7 @@ export default function PageList({product}) {
                 <DesWrapper>
                   <div>
                     <h3 className="font-bold">{product.title}</h3>
-                    <h3>{product.sub_title}</h3>
+                    <h3 className="text-sm ">{product.sub_title}</h3>
                   </div>
                 </DesWrapper>
             </Item>

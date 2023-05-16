@@ -73,7 +73,7 @@ export default function Category({ children }) {
 
   return (
     <section className=" h-99 ">
-      <div className="flex justify-center items-center my-5 ">
+      <div className="flex justify-center items-center mt-6 mb-6">
 
         <MenuBox className={`flex flex-col justify-center items-center ${selectedMenu === '전체' ? 'selected' : ''}`} >
           <ImageWrapper><StyledImage isHovered={hoveredMenu==='전체' ? 'isHovered' : null} src="/전체.png" width={82} height={82} alt="전체" /></ImageWrapper>
