@@ -32,6 +32,16 @@ border-bottom: 2px solid transparent;
   border-bottom-color: #412dd4; 
 }
 
+@media (max-width: 600) {
+  font-size: 10px;
+  color: orange;
+  }
+
+@media (max-width: 400px) {
+  display: none;
+  }
+
+
 `;
 
 const ImageWrapper = styled.div`
@@ -62,8 +72,8 @@ export default function Category({ children }) {
 
 
   return (
-    <section className="w-screen h-99">
-      <div className="flex justify-center items-center my-5">
+    <section className=" h-99 ">
+      <div className="flex justify-center items-center my-5 ">
 
         <MenuBox className={`flex flex-col justify-center items-center ${selectedMenu === '전체' ? 'selected' : ''}`} >
           <ImageWrapper><StyledImage isHovered={hoveredMenu==='전체' ? 'isHovered' : null} src="/전체.png" width={82} height={82} alt="전체" /></ImageWrapper>
