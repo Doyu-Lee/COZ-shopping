@@ -1,10 +1,10 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialProducts = [];
+  const initialState = JSON.parse(localStorage.getItem("bookmarkedProducts")) 
 
 export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
-  initialState: initialProducts,
+  initialState,
   reducers: {
     addBookMarkedProducts: (state, action) => {
       const updatedState = [...state, { value: action.payload, isBookmarked: true }];
@@ -19,13 +19,6 @@ export const bookMarkedProducts = createSlice({
   },
 });
 
-const localStorageData = localStorage.getItem("bookmarkedProducts");
-const initialState = localStorageData ? JSON.parse(localStorageData) : [];
-
-export const bookMarkStore = configureStore({
-  reducer: bookMarkedProducts.reducer,
-  preloadedState: initialState,
-});
 
 export const { addBookMarkedProducts, deleteBookMarkedProduct } = bookMarkedProducts.actions;
 export default bookMarkedProducts.reducer;
