@@ -11,6 +11,13 @@ const 카테고리 = '카테고리'
 const 기획전 = '기획전'
 const 브랜드 = '브랜드'
 
+const Section = styled.section`
+  /* border:1px solid yellow; */
+  height: calc(100vh - 59px - 70px);
+  display: flex;
+  flex-direction: column;
+`;
+
 const StyledImage = styled.img`
   transition: transform 0.3s;
   transform: ${({ isHovered }) => (isHovered ? 'scale(1.1)' : 'scale(1)')};
@@ -54,6 +61,10 @@ const ImageWrapper = styled.div`
   border-radius: 50%;
 `;
 
+const Main = styled.main`
+  /* border: 1px solid blue; */
+  flex: 1;
+`;
 
 export default function Category({ children }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -74,7 +85,7 @@ export default function Category({ children }) {
 
 
   return (
-    <section className=" h-99 ">
+    <Section>
       <div className="flex justify-center items-center mt-6 mb-6">
 
         <MenuBox className={`flex flex-col justify-center items-center ${selectedMenu === 전체 ? 'selected' : ''}`} >
@@ -108,12 +119,10 @@ export default function Category({ children }) {
         </MenuBox>
 
       </div>
-      <main>
-        {React.Children.map(children, (child) =>
-            React.cloneElement(child, { selectedMenu })
-          )}
-      </main>    
-      </section>
+      <Main>
+        {children}
+      </Main>    
+      </Section>
 
   )
 }

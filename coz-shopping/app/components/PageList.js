@@ -64,7 +64,7 @@ const Img = styled.img`
 
   &:hover {
     background-color: white;
-
+    cursor: pointer;
     transform: scale(1.07);
     filter: opacity(0.88); /* 이미지에 대한 hover 시 밝기 증가 */
     /* overflow: hidden; */
@@ -97,7 +97,7 @@ const Span = styled.span `
 `
 
 
-export default function PageList({product}) {
+export default function PageList({product, id}) {
   const [isOpen, setIsOpen] = useState(false);
   const StarRef = useRef(null);
 
@@ -108,7 +108,7 @@ export default function PageList({product}) {
       <Item className="" key={product.id}>
           <ImgWrapper onClick={openModalHandler}>
             <Img src={product.image_url || product.brand_image_url} alt={product.title || product.brand_name} />
-            <BookmarkStar StarRef={StarRef} />
+            <BookmarkStar StarRef={StarRef} id={product.id} />
           </ImgWrapper>
           <DesWrapper onClick={openModalHandler}>
             <Span>

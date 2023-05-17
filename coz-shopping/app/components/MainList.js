@@ -63,7 +63,7 @@ const Img = styled.img`
 
   &:hover {
     background-color: white;
-
+    cursor: pointer;
     transform: scale(1.07);
     filter: opacity(0.88); /* 이미지에 대한 hover 시 밝기 증가 */
     /* overflow: hidden; */
