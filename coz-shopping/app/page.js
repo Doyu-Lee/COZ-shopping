@@ -108,9 +108,9 @@ export default function MainPage() {
         <ItemContainer>
           <H2>북마크 리스트</H2>
           <ItemsBox>
-            {bookMarkedProducts.length ?      
+            {Object.keys(bookMarkedProducts).length ?      
             bookMarkedProducts.map((product) => (
-                          <MainList key={product.id} product={product} />
+                          <MainList key={product.value.id} product={product.value} isBookmarked={product.isBookmarked} />
                         ))
             : <EmptyBookmark />}
 

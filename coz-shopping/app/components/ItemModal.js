@@ -77,7 +77,7 @@ export const ModalView = styled.div.attrs(props => ({
 `;
 
 
-export default function Modal ({openModalHandler, isOpen, title, img}) {
+export default function Modal ({openModalHandler, isOpen, title, img ,id}) {
   return (
     <Container>
         {isOpen === true ? 
@@ -86,7 +86,7 @@ export default function Modal ({openModalHandler, isOpen, title, img}) {
               <div onClick={openModalHandler} className='close-btn'>&times;</div>
               
               <div className='titleWrap'>
-                <BookmarkStar title={title} />
+                <BookmarkStar title={title} id={id} />
                 <div className='desc'>{title}</div>
               </div>
           </ModalView>

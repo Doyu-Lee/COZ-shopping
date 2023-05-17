@@ -101,7 +101,7 @@ const Span = styled.span `
 `
 
 
-export default function PageList({product, id}) {
+export default function PageList({product}) {
   const [isOpen, setIsOpen] = useState(false);
   const StarRef = useRef(null);
 
@@ -138,7 +138,7 @@ export default function PageList({product, id}) {
             </div>
           </DesWrapper>
           {isOpen === true ? 
-          <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={product.brand_name ? `${product.brand_name}` : `# ${product.title}`} img={product.brand_image_url ? product.brand_image_url : product.image_url } /> 
+          <Modal openModalHandler={openModalHandler} id={product.id} isOpen={isOpen} title={product.brand_name ? `${product.brand_name}` : `# ${product.title}`} img={product.brand_image_url ? product.brand_image_url : product.image_url } /> 
           : null}
       </Item>
 )           

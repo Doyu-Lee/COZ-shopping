@@ -12,7 +12,7 @@ export const bookMarkedProducts = createSlice({
       return updatedState;
     },
     deleteBookMarkedProduct: (state, action) => {
-      const updatedState = state.filter((item) => item.id !== action.payload.id);
+      const updatedState = state.filter((item) => item.value.id !== action.payload.value.id);
       localStorage.setItem("bookmarkedProducts", JSON.stringify(updatedState));
       return updatedState;
     },

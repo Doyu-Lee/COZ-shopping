@@ -103,19 +103,18 @@ useEffect(() => {
 }}, [window.innerWidth, visibleItems, handleScroll]);
 
 const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
-const [items, setItems] = useState(bookMarkedProducts);
 
 
 
   return (
 
   <Section  ref={containerRef}>
-      {items.length ? 
+      {Object.keys(bookMarkedProducts).length ?
       <Wrapper >
-      {items.slice(0, visibleItems).map((product) => (
+      {bookMarkedProducts.slice(0, visibleItems).map((product) => (
         // 상품 데이터 배열에서 보여줄 개수만큼 슬라이싱하여 렌더링
-        <PageList key={items.id} 
-        product={product.value} id={items.id} isBookmarked={product.isBookmarked}/>
+        <PageList key={product.value.id} 
+        product={product.value} id={product.value.id} isBookmarked={product.value.isBookmarked}/>
       ))}
       </Wrapper>
       :

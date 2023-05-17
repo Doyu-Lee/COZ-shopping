@@ -96,7 +96,7 @@ const Span = styled.span `
   flex: 1;
 `
 
-export default function MainList({product}) {
+export default function MainList({product, isBookmarked}) {
   const [isOpen, setIsOpen] = useState(false);
   const StarRef = useRef(null);
 
@@ -107,7 +107,7 @@ export default function MainList({product}) {
       <Item className="" key={product.id}>
           <ImgWrapper onClick={openModalHandler}>
             <Img src={product.image_url || product.brand_image_url} alt={product.title || product.brand_name} />
-            <BookmarkStar StarRef={StarRef} />
+            <BookmarkStar StarRef={StarRef} id={product.id} isBookmarked={isBookmarked}/>
           </ImgWrapper>
           <DesWrapper onClick={openModalHandler}>
             <Span>
@@ -133,7 +133,7 @@ export default function MainList({product}) {
             </div>
           </DesWrapper>
           {isOpen === true ? 
-          <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={product.brand_name ? `${product.brand_name}` : `# ${product.title}`} img={product.brand_image_url ? product.brand_image_url : product.image_url } /> 
+          <Modal openModalHandler={openModalHandler} isOpen={isOpen} id={product.id} title={product.brand_name ? `${product.brand_name}` : `# ${product.title}`} img={product.brand_image_url ? product.brand_image_url : product.image_url } /> 
           : null}
       </Item>
 )          

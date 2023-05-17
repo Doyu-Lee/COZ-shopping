@@ -74,11 +74,10 @@ export default function BookmarkStar ({title, StarRef, id}) {
   const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.value.id === id);
 
 
-
+console.log(bookMarkedProducts)
 
   if (bookMarkedTargetItem)  {
     isBookmarked  = bookMarkedTargetItem.isBookmarked;
-    console.log(isBookmarked)
   }
 
     // console.log(bookMarkedProducts)
