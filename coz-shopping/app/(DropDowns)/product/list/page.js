@@ -4,7 +4,7 @@ import PageList from "../../../components/PageList"
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../../redux/productApi"
 import { useState, useEffect, useRef, useCallback } from "react";
-
+import Loading from "../../../components/Loading"
 
 const Wrapper = styled.div`
 /* border: 1px solid red; */
@@ -105,7 +105,7 @@ useEffect(() => {
     {error ? (
       <p>Oh no, there was an error</p>
     ) : isLoading || isFetching ? (
-      <p>Loading...</p>
+      <Loading />
     ) : data ? (
       
       <Wrapper >

@@ -3,6 +3,7 @@
 import { useGetProductQuery, useGetProductByCountQuery } from "./redux/productApi";
 import MainList from "./components/MainList"
 import styled from "styled-components";
+import Loading from "./components/Loading";
 
 const Container = styled.article`
 /* border: 1px solid green; */
@@ -83,7 +84,7 @@ export default function MainPage() {
       {error ? (
         <p>Oh no, there was an error</p>
       ) : isLoading || isFetching ? (
-        <p>Loading...</p>
+        <Loading />
       ) : data ? (
         <ItemContainer>
           <H2>상품 리스트</H2>
@@ -98,7 +99,7 @@ export default function MainPage() {
         {error ? (
         <p>Oh no, there was an error</p>
       ) : isLoading || isFetching ? (
-        <p>Loading...</p>
+        <Loading />
       ) : data ? (
         <ItemContainer>
           <H2>북마크 리스트</H2>
