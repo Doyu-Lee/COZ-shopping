@@ -30,6 +30,7 @@ const ItemContainer = styled.section`
   margin: 20 0px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   @media (max-height: 700px) or (max-width: 1000px) {
     height: 300px;
@@ -49,9 +50,11 @@ const ItemContainer = styled.section`
 const ItemsBox = styled.div`
   /* border: 1px solid blue;  */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 80%;
-  
+  flex-wrap: wrap;
+  overflow: hidden;
+
   @media (max-width: 700px) {
     flex-wrap: wrap;
     overflow: hidden;

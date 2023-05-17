@@ -8,7 +8,7 @@ const Product = "Product"
 const Category = "Category"
 
 const Item = styled.div`
-  /* border: 1px solid red; */
+  /* border: 1px solid blue; */
   height: 100%;
   width: 20%;
   display: flex;
@@ -25,12 +25,16 @@ const Item = styled.div`
 
   @media (max-width: 1000px) {
     flex-basis: 30%;
+
     &:nth-child(3n) {
     margin-right: 0;
   }
   }
   @media (max-width: 700px) {
     flex-basis: 45%;
+    &:nth-child(3n) {
+    margin-right: 4%;
+  }
     &:nth-child(2n) {
     margin-right: 0;
   }

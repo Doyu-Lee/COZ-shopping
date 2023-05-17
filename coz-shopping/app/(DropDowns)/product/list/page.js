@@ -12,11 +12,18 @@ const Wrapper = styled.div`
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 3%;
+  justify-content: first baseline;
+  padding: 0 0 0 7%;
+  margin-bottom: 5%;
 
+  @media (max-width: 1000px) {
+  padding: 0 0 0 2%;
+  }
   @media (max-width: 700px) {
-  padding: 0;
+    padding: 0 0 0 6%;
+  }
+  @media (max-width: 400px) {
+    padding: 0;
   }
 `
 
@@ -25,10 +32,9 @@ width: 100%;
 /* border: 1px solid green; */
 `
 
-export default function Product() {
+export default function Product({selectedMenu}) {
 
 const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
-// console.log(data)
 const containerRef = useRef(null);
 
 // 처음에 보여줄 상품 개수와 스크롤 할 때마다 추가로 보여줄 상품 개수
@@ -95,9 +101,7 @@ useEffect(() => {
   };
 }}, [window.innerWidth, visibleItems, handleScroll]);
 
-
-
-
+// console.log(selectedMenu)
 
   return (
 

@@ -10,26 +10,25 @@ const Category = "Category"
 const Item = styled.div`
   /* border: 1px solid red; */
   height: 100%;
-  flex: 1;
-  /* width: 23%; */
+  width: 22%;
   display: flex;
   flex-direction: column;
   margin-right: 4%;
 
-  &:last-child {
+  &:nth-child(4) {
     margin-right: 0;
   }
 
   @media (max-width: 1000px) {
     /* 3개의 아이템으로 보이도록 스타일 조정 */
-    flex-basis: 30%;
-    &:nth-child(4) {
+    flex-basis: 30.6%;
+    &:nth-child(3) {
     margin-right: 0;
   }
   }
   @media (max-width: 700px) {
     /* 3개의 아이템으로 보이도록 스타일 조정 */
-    flex-basis: 40%;
+    flex-basis: 48%;
     &:nth-child(2) {
     margin-right: 0;
   }

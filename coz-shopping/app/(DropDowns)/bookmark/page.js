@@ -14,11 +14,17 @@ const Wrapper = styled.div`
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 3%;
-
+  justify-content: first baseline;
+  padding: 0 0 0 7%;
+  margin-bottom: 5%;
+  @media (max-width: 1000px) {
+  padding: 0 0 0 2%;
+  }
   @media (max-width: 700px) {
-  padding: 0;
+    padding: 0 0 0 6%;
+  }
+  @media (max-width: 400px) {
+    padding: 0;
   }
 `
 
