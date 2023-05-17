@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
     <html lang="ko" className="noScroll">
       <Providers>
       {/* <body className={inter.className}> */}
-        <body>
+      <body>
         <Header />
-          <main >{children}</main>
+          <main>{children}</main>
         <Footer />
       </body>
       </Providers>

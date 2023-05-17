@@ -2,6 +2,10 @@
 
 import { styled, keyframes } from "styled-components";
 import { useState } from 'react';
+import { addBookMarkedProducts, deleteBookMarkedProduct } from "../redux/bookmarkReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { useGetProductsQuery } from "../redux/productApi"
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 
 const pulse = keyframes`
@@ -60,25 +64,31 @@ const Img = styled.img`
   &.deactive {
     animation: ${deactive} 0.2s linear; /* 클릭 후 약간 커졌다 다시 원래 크기로 돌아가는 애니메이션 효과 */
   }
-
-
-
 `
 
-
-
-export default function BookmarkStar ({title, StarRef}) {
+export default function BookmarkStar ({title, StarRef, id}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
+  const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
+  const dispatch = useAppDispatch();
 
-  const handleBookmarkBtn = () => {
-setIsBookmarked(!isBookmarked)
-
+  const handleBookmarkBtn = (id) => { 
+    setIsBookmarked(!isBookmarked) 
+    const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.id === id);
+    
+    if (!bookMarkedTargetItem) { 
+      const targetItem = data.find((product) => product.id === id);  
+      dispatch(addBookMarkedProducts(targetItem));
+    } else {
+      dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+    }
   };
 
   return (
 
     <Img src={isBookmarked ? "/북마크별on.svg" : "/북마크-별표off.svg"}
-    onClick={handleBookmarkBtn}
+    onClick={(e) => {
+      handleBookmarkBtn(id)}}
     className={`${title ? "modal" : ""} ${isBookmarked ? "active" : "deactive"}`}
     alt="북마크"
     ref={StarRef}

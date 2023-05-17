@@ -4,6 +4,8 @@ import { useGetProductQuery, useGetProductByCountQuery } from "./redux/productAp
 import MainList from "./components/MainList"
 import styled from "styled-components";
 import Loading from "./components/Loading";
+import { useSelector } from "react-redux";
+import EmptyBookmark from "./components/EmptyBookmark"
 
 const Container = styled.article`
 /* border: 1px solid green; */
@@ -74,10 +76,9 @@ height: 38px;
 `;
 
 export default function MainPage() {
-
-  // const { isLoading, isFetching, data, error } = useGetProductQuery(null);
   const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
-// console.log(data)
+  const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
+
   return (
     <Container>
 
@@ -104,9 +105,13 @@ export default function MainPage() {
         <ItemContainer>
           <H2>북마크 리스트</H2>
           <ItemsBox>
-            {data.map((product) => (
-              <MainList key={product.id} product={product} />
-            ))}
+            {bookMarkedProducts.length ?      
+            bookMarkedProducts.map((product) => (
+                          <MainList key={product.id} product={product} />
+                        ))
+            : <EmptyBookmark />}
+
+       
           </ItemsBox>
         </ItemContainer>
       ) : null}
