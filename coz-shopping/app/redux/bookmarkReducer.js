@@ -7,15 +7,13 @@ export const bookMarkedProducts = createSlice({
   initialState: initialProducts,
   reducers: {
     addBookMarkedProducts: (state, action) => {
-      const updatedState = [...state, action.payload];
+      const updatedState = [...state, { value: action.payload, isBookmarked: true }];
       localStorage.setItem("bookmarkedProducts", JSON.stringify(updatedState));
-      // console.log(updatedState)
       return updatedState;
     },
     deleteBookMarkedProduct: (state, action) => {
       const updatedState = state.filter((item) => item.id !== action.payload.id);
       localStorage.setItem("bookmarkedProducts", JSON.stringify(updatedState));
-      // console.log(updatedState)
       return updatedState;
     },
   },

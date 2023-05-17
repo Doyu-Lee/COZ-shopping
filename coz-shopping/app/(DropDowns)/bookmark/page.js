@@ -114,7 +114,8 @@ const [items, setItems] = useState(bookMarkedProducts);
       <Wrapper >
       {items.slice(0, visibleItems).map((product) => (
         // 상품 데이터 배열에서 보여줄 개수만큼 슬라이싱하여 렌더링
-        <PageList key={items.id} product={product} id={items.id}/>
+        <PageList key={items.id} 
+        product={product.value} id={items.id} isBookmarked={product.isBookmarked}/>
       ))}
       </Wrapper>
       :

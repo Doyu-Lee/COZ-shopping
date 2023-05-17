@@ -67,15 +67,24 @@ const Img = styled.img`
 `
 
 export default function BookmarkStar ({title, StarRef, id}) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
   const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
   const dispatch = useAppDispatch();
+  let isBookmarked;
+  const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.value.id === id);
 
+
+
+
+  if (bookMarkedTargetItem)  {
+    isBookmarked  = bookMarkedTargetItem.isBookmarked;
+    console.log(isBookmarked)
+  }
+
+    // console.log(bookMarkedProducts)
   const handleBookmarkBtn = (id) => { 
-    setIsBookmarked(!isBookmarked) 
-    const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.id === id);
     
+    // console.log(bookMarkedTargetItem)
     if (!bookMarkedTargetItem) { 
       const targetItem = data.find((product) => product.id === id);  
       dispatch(addBookMarkedProducts(targetItem));
