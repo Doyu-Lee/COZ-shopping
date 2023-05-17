@@ -1,7 +1,7 @@
 "use client"
 
 import { styled, keyframes } from "styled-components";
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 
 const pulse = keyframes`
@@ -67,7 +67,7 @@ const Img = styled.img`
 
 
 
-export default function BookmarkStar ({title}) {
+export default function BookmarkStar ({title, StarRef}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleBookmarkBtn = () => {
@@ -79,8 +79,9 @@ setIsBookmarked(!isBookmarked)
 
     <Img src={isBookmarked ? "/북마크별on.svg" : "/북마크-별표off.svg"}
     onClick={handleBookmarkBtn}
-    className={title ? `modal ${isBookmarked ? "active" : "deactive"}` : null}
+    className={`${title ? "modal" : ""} ${isBookmarked ? "active" : "deactive"}`}
     alt="북마크"
+    ref={StarRef}
     />
   )
 }
