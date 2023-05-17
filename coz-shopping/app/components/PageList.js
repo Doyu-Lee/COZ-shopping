@@ -1,6 +1,9 @@
-
+"use client"
 import styled from "styled-components";
 import BookmarkStar from "./BookmarkStar"
+import Modal from "./ItemModal";
+import { useState, useRef } from 'react';
+
 
 const Item = styled.div`
   /* border: 1px solid red; */
@@ -41,17 +44,31 @@ const Item = styled.div`
 const ImgWrapper = styled.div`
   /* border: 1px solid orange; */
   width: 100%;
-  /* flex: 1.3; */
   overflow: hidden;
   height: 160px;
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+
+
 `
 
 const Img = styled.img`
-  border-radius: 12px;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  overflow: hidden;
+  transition: all 0.3s ease; /* 텍스트 색상과 이미지 필터에 대한 transition 효과 설정 */
+
+  &:hover {
+    background-color: white;
+
+    transform: scale(1.07);
+    filter: opacity(0.88); /* 이미지에 대한 hover 시 밝기 증가 */
+    /* overflow: hidden; */
+
+  }
+
 `
 
 const DesWrapper = styled.div`
@@ -62,6 +79,12 @@ const DesWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  transition: all 1s ease; /* 텍스트 색상과 이미지 필터에 대한 transition 효과 설정 */
+  &:hover {
+    cursor: pointer;
+    background: linear-gradient(to right, blue, #8a2be2); /* 그래디언트 효과 추가 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;  }
 `
 
 const ProductH3 = styled.span `
@@ -70,17 +93,22 @@ const ProductH3 = styled.span `
 
 `
 
+
 export default function PageList({product}) {
-  // console.log(product);
+  const [isOpen, setIsOpen] = useState(false);
+  const StarRef = useRef(null);
+
+  const openModalHandler = (e) => { 
+    if (StarRef.current && !StarRef.current.contains(e.target)) setIsOpen(!isOpen);}
 
   if (product.type === 'Category') {
     return (
             <Item className="" key={product.id}>
-                <ImgWrapper>
+                <ImgWrapper onClick={openModalHandler}>
                   <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar />
+                  <BookmarkStar StarRef={StarRef} />
                 </ImgWrapper>
-                <DesWrapper>
+                <DesWrapper onClick={openModalHandler}>
                   <div>
                     <h3 className="font-bold"># {product.title}</h3>
                     <h3></h3>
@@ -90,6 +118,9 @@ export default function PageList({product}) {
                     
                   </div>
                 </DesWrapper>
+                {isOpen === true ? 
+                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`# ${product.title}`} img={product.image_url} /> 
+                : null}
             </Item>
       )
   }
@@ -98,11 +129,11 @@ export default function PageList({product}) {
     // console.log(typeof product.follower)
     return (
             <Item className="" key={product.id}>
-                <ImgWrapper>
+                <ImgWrapper onClick={openModalHandler}>
                   <Img src={product.brand_image_url} alt={product.brand_name} />
-                  <BookmarkStar />
+                  <BookmarkStar StarRef={StarRef} />
                 </ImgWrapper>
-                <DesWrapper>
+                <DesWrapper onClick={openModalHandler}>
                   <div>
                     <h3 className="font-bold">{product.brand_name}</h3>
                     <h3>{product.sub_title}</h3>
@@ -112,37 +143,41 @@ export default function PageList({product}) {
                     <h3 className="text-right">{product.follower.toLocaleString()}</h3>
                   </div>
                 </DesWrapper>
-            </Item>
+                {isOpen === true ? 
+                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.brand_name}`} img={product.brand_image_url} /> 
+                : null}            </Item>
       )
     }
 
   if (product.type === 'Exhibition') {
     return (
             <Item className="" key={product.id}>
-                <ImgWrapper>
+                <ImgWrapper onClick={openModalHandler}>
                   <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar />
+                  <BookmarkStar StarRef={StarRef} />
                 </ImgWrapper>
                 
-                <DesWrapper>
+                <DesWrapper onClick={openModalHandler}>
                   <div>
                     <h3 className="font-bold">{product.title}</h3>
                     <h3 className="text-sm ">{product.sub_title}</h3>
                   </div>
                 </DesWrapper>
-            </Item>
+                {isOpen === true ? 
+                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.title}`} img={product.image_url} /> 
+                : null}            </Item>
       )
   }
 
   if (product.type === 'Product') {
     // console.log(typeof product.price)
     return (
-            <Item className="" key={product.id}>
-                <ImgWrapper>
+            <Item key={product.id}>
+                <ImgWrapper onClick={openModalHandler}>
                   <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar />
+                  <BookmarkStar StarRef={StarRef} />
                 </ImgWrapper>
-                <DesWrapper>
+                <DesWrapper onClick={openModalHandler}>
                   
                     <ProductH3 className="font-bold">{product.title}</ProductH3>
                   
@@ -151,7 +186,9 @@ export default function PageList({product}) {
                     <h3 className="text-sm">{Number(product.price).toLocaleString()}원</h3>
                   </div>
                 </DesWrapper>
-            </Item>
+                {isOpen === true ? 
+                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.title}`} img={product.image_url} /> 
+                : null}            </Item>
       )
   }
 
