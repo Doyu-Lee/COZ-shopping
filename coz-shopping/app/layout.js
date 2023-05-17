@@ -6,8 +6,6 @@ import Footer from './components/Footer'
 // const inter = Inter({ subsets: ['latin'] })
 
 import { Providers } from './redux/provider'
-import { Suspense } from 'react'
-import Loading from './components/Loading'
 
 export const metadata = {
   title: 'COZ-shopping',
@@ -22,9 +20,7 @@ export default function RootLayout({ children }) {
       {/* <body className={inter.className}> */}
         <body>
         <Header />
-        <Suspense fallback={<Loading />}>
           <main >{children}</main>
-        </Suspense>
         <Footer />
       </body>
       </Providers>

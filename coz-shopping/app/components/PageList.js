@@ -4,6 +4,8 @@ import BookmarkStar from "./BookmarkStar"
 import Modal from "./ItemModal";
 import { useState, useRef } from 'react';
 
+const Product = "Product"
+const Category = "Category"
 
 const Item = styled.div`
   /* border: 1px solid red; */
@@ -89,8 +91,9 @@ const DesWrapper = styled.div`
 
 const ProductH3 = styled.span `
   word-break: keep-all;
+`
+const Span = styled.span `
   flex: 1;
-
 `
 
 
@@ -101,95 +104,38 @@ export default function PageList({product}) {
   const openModalHandler = (e) => { 
     if (StarRef.current && !StarRef.current.contains(e.target)) setIsOpen(!isOpen);}
 
-  if (product.type === 'Category') {
     return (
-            <Item className="" key={product.id}>
-                <ImgWrapper onClick={openModalHandler}>
-                  <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar StarRef={StarRef} />
-                </ImgWrapper>
-                <DesWrapper onClick={openModalHandler}>
-                  <div>
-                    <h3 className="font-bold"># {product.title}</h3>
-                    <h3></h3>
-                  </div>
-                  <div>
-                    <h3></h3>
-                    
-                  </div>
-                </DesWrapper>
-                {isOpen === true ? 
-                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`# ${product.title}`} img={product.image_url} /> 
-                : null}
-            </Item>
-      )
-  }
-
-  if (product.type === 'Brand') {
-    // console.log(typeof product.follower)
-    return (
-            <Item className="" key={product.id}>
-                <ImgWrapper onClick={openModalHandler}>
-                  <Img src={product.brand_image_url} alt={product.brand_name} />
-                  <BookmarkStar StarRef={StarRef} />
-                </ImgWrapper>
-                <DesWrapper onClick={openModalHandler}>
-                  <div>
-                    <h3 className="font-bold">{product.brand_name}</h3>
-                    <h3>{product.sub_title}</h3>
-                  </div>
-                  <div>
-                    <h3 className="font-bold">관심고객수</h3>
-                    <h3 className="text-right">{product.follower.toLocaleString()}</h3>
-                  </div>
-                </DesWrapper>
-                {isOpen === true ? 
-                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.brand_name}`} img={product.brand_image_url} /> 
-                : null}            </Item>
-      )
-    }
-
-  if (product.type === 'Exhibition') {
-    return (
-            <Item className="" key={product.id}>
-                <ImgWrapper onClick={openModalHandler}>
-                  <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar StarRef={StarRef} />
-                </ImgWrapper>
-                
-                <DesWrapper onClick={openModalHandler}>
-                  <div>
-                    <h3 className="font-bold">{product.title}</h3>
-                    <h3 className="text-sm ">{product.sub_title}</h3>
-                  </div>
-                </DesWrapper>
-                {isOpen === true ? 
-                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.title}`} img={product.image_url} /> 
-                : null}            </Item>
-      )
-  }
-
-  if (product.type === 'Product') {
-    // console.log(typeof product.price)
-    return (
-            <Item key={product.id}>
-                <ImgWrapper onClick={openModalHandler}>
-                  <Img src={product.image_url} alt={product.title} />
-                  <BookmarkStar StarRef={StarRef} />
-                </ImgWrapper>
-                <DesWrapper onClick={openModalHandler}>
-                  
-                    <ProductH3 className="font-bold">{product.title}</ProductH3>
-                  
-                  <div className="text-right ">
-                    <h3 className="font-bold text-myBlue">{product.discountPercentage}%</h3>
-                    <h3 className="text-sm">{Number(product.price).toLocaleString()}원</h3>
-                  </div>
-                </DesWrapper>
-                {isOpen === true ? 
-                <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={`${product.title}`} img={product.image_url} /> 
-                : null}            </Item>
-      )
-  }
-
+      <Item className="" key={product.id}>
+          <ImgWrapper onClick={openModalHandler}>
+            <Img src={product.image_url || product.brand_image_url} alt={product.title || product.brand_name} />
+            <BookmarkStar StarRef={StarRef} />
+          </ImgWrapper>
+          <DesWrapper onClick={openModalHandler}>
+            <Span>
+              {product.type === Product ? 
+                <ProductH3 className="font-bold">{product.title}</ProductH3> :
+                <h3 className="font-bold">
+                {product.type === Category ? "# " + product.title
+                      : product.title || product.brand_name}</h3>
+              }
+                <h3 className="text-sm ">{product.sub_title}</h3> 
+            </Span>
+            <div className="text-right ">
+              <h3 className={`font-bold ${product.type === Product ? "text-myBlue" : ""}`} >
+                {product.brand_name ? "관심고객수" : 
+                  product.discountPercentage? product.discountPercentage + "%"
+                      : ""}
+              </h3>
+              <span className={`text-sm ${product.type === Product ? "" : ""}`}>
+                {product.brand_name ? Number(product.follower).toLocaleString() : product.price
+                  ? Number(product.price).toLocaleString() + "원"
+                  : ""}
+              </span>
+            </div>
+          </DesWrapper>
+          {isOpen === true ? 
+          <Modal openModalHandler={openModalHandler} isOpen={isOpen} title={product.brand_name ? `${product.brand_name}` : `# ${product.title}`} img={product.brand_image_url ? product.brand_image_url : product.image_url } /> 
+          : null}
+      </Item>
+)           
 }

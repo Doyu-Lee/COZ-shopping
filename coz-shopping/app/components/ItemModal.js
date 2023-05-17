@@ -89,7 +89,6 @@ export default function Modal ({openModalHandler, isOpen, title, img}) {
                 <BookmarkStar title={title} />
                 <div className='desc'>{title}</div>
               </div>
-
           </ModalView>
         </ModalBackdrop> : null}
       </Container>
