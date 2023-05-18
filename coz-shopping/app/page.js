@@ -3,6 +3,9 @@
 import { useGetProductQuery, useGetProductByCountQuery } from "./redux/productApi";
 import MainList from "./components/MainList"
 import styled from "styled-components";
+import Loading from "./components/Loading";
+import { useSelector } from "react-redux";
+import EmptyBookmark from "./components/EmptyBookmark"
 
 const Container = styled.article`
 /* border: 1px solid green; */
@@ -27,6 +30,7 @@ const ItemContainer = styled.section`
   margin: 20 0px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   @media (max-height: 700px) or (max-width: 1000px) {
     height: 300px;
@@ -46,9 +50,11 @@ const ItemContainer = styled.section`
 const ItemsBox = styled.div`
   /* border: 1px solid blue;  */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 80%;
-  
+  flex-wrap: wrap;
+  overflow: hidden;
+
   @media (max-width: 700px) {
     flex-wrap: wrap;
     overflow: hidden;
@@ -73,17 +79,16 @@ height: 38px;
 `;
 
 export default function MainPage() {
-
-  // const { isLoading, isFetching, data, error } = useGetProductQuery(null);
   const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
-// console.log(data)
+  const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
+
   return (
     <Container>
 
       {error ? (
         <p>Oh no, there was an error</p>
       ) : isLoading || isFetching ? (
-        <p>Loading...</p>
+        <Loading />
       ) : data ? (
         <ItemContainer>
           <H2>상품 리스트</H2>
@@ -98,14 +103,18 @@ export default function MainPage() {
         {error ? (
         <p>Oh no, there was an error</p>
       ) : isLoading || isFetching ? (
-        <p>Loading...</p>
+        <Loading />
       ) : data ? (
         <ItemContainer>
           <H2>북마크 리스트</H2>
           <ItemsBox>
-            {data.map((product) => (
-              <MainList key={product.id} product={product} />
-            ))}
+            {Object.keys(bookMarkedProducts).length ?      
+            bookMarkedProducts.map((product) => (
+                          <MainList key={product.value.id} product={product.value} isBookmarked={product.isBookmarked} />
+                        ))
+            : <EmptyBookmark />}
+
+       
           </ItemsBox>
         </ItemContainer>
       ) : null}

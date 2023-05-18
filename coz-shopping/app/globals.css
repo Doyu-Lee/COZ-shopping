@@ -7,3 +7,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.noScroll {
+  /* 인터넷 익스플로러 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* 파이어폭스 */
+  /* Firefox 64+ */
+  overflow: -moz-scrollbars-none;
+
+  /* 크롬, 사파리, 오페라, 엣지 */
+  /* Chrome 68+ */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import { productApi } from "./productApi";
-// import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import bookMarkedProducts from "./bookmarkReducer"
+import toastReducer from "./ToastReducer"
 
 export const store = configureStore({
   reducer: {
+    bookMarkedProducts,
+    toastReducer,
     [productApi.reducerPath]: productApi.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
@@ -11,7 +15,5 @@ export const store = configureStore({
     getDefaultMiddleware().concat([productApi.middleware]),
 });
 
-// setupListeners(store.dispatch);
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

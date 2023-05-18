@@ -1,10 +1,7 @@
 import './globals.css'
-// import { Inter } from 'next/font/google'
 import Header from './components/Header'
 import Footer from './components/Footer'
-
-// const inter = Inter({ subsets: ['latin'] })
-
+import NotificationCenter from './components/ToastCenter'
 import { Providers } from './redux/provider'
 
 export const metadata = {
@@ -15,12 +12,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className="noScroll">
       <Providers>
-      {/* <body className={inter.className}> */}
-        <body>
+      <body>
         <Header />
-        <main>{children}</main>
+          <main>{children}</main>
+          <NotificationCenter/>
         <Footer />
       </body>
       </Providers>

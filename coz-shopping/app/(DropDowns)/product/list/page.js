@@ -3,8 +3,8 @@
 import PageList from "../../../components/PageList"
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../../redux/productApi"
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useRef, useCallback } from "react";
+import Loading from "../../../components/Loading"
 
 const Wrapper = styled.div`
 /* border: 1px solid red; */
@@ -12,11 +12,18 @@ const Wrapper = styled.div`
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 3%;
+  justify-content: first baseline;
+  padding: 0 0 0 7%;
+  margin-bottom: 5%;
 
+  @media (max-width: 1000px) {
+  padding: 0 0 0 2%;
+  }
   @media (max-width: 700px) {
-  padding: 0;
+    padding: 0 0 0 6%;
+  }
+  @media (max-width: 400px) {
+    padding: 0;
   }
 `
 
@@ -25,66 +32,87 @@ width: 100%;
 /* border: 1px solid green; */
 `
 
-export default function Product() {
+export default function Product({selectedMenu}) {
 
 const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
-console.log(data)
+const containerRef = useRef(null);
 
 // 처음에 보여줄 상품 개수와 스크롤 할 때마다 추가로 보여줄 상품 개수
-const initialItemCount = 12;
-let loadMoreItemCount;
-const [visibleItems, setVisibleItems] = useState(initialItemCount);
+const [visibleItems, setVisibleItems] = useState(12);
+const [loadMoreItemCount, setLoadMoreItemCount] = useState(8);
 
-const handleScroll = () => {
+const handleScroll = useCallback(() => {
   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight) {
-    // 스크롤이 페이지의 가장 아래로 도달했을 때
+    // 스크롤이 페이지의 가장 아래로 도달했을 때 순차적으로 가져오도록 함
     setVisibleItems(prevCount => prevCount + loadMoreItemCount);
   }
-};
+}, [loadMoreItemCount]);
+
 
 const handleResize = () => {
   // 현재 viewport 넓이를 가져옴
   const viewportWidth = window.innerWidth;
+  let newLoadMoreItemCount;
 
   // viewport 넓이에 따라 보여줄 상품 개수 계산
-  if (viewportWidth >= 1000) {
-    loadMoreItemCount = 8; // viewport 넓이가 1200px 이상일 때
-  } else if (viewportWidth >= 700) {
-    loadMoreItemCount = 6; // viewport 넓이가 768px 이상일 때
+  if (viewportWidth >= 1000 && visibleItems > 12) {   
+    newLoadMoreItemCount = 4 + (4 - visibleItems % 4); 
+  } else if (viewportWidth < 1000 && visibleItems > 12) {   
+    newLoadMoreItemCount = 3 + (3 - visibleItems % 3); 
+
+  } else if (viewportWidth < 700 && visibleItems > 12) {   
+    newLoadMoreItemCount = 2 + (2 - visibleItems % 2); 
+
   } else {
-    loadMoreItemCount = 4; // viewport 넓이가 768px 미만일 때
+    newLoadMoreItemCount = 8; // 기본값 설정
   }
 
-  setVisibleItems(loadMoreItemCount);
-};
+    setLoadMoreItemCount(newLoadMoreItemCount);
+
+
+  }
+
 
 // useEffect로 초기 로드 및 리사이즈 이벤트 리스너 등록
 useEffect(() => {
-  handleResize(); // 초기 로드 시 한 번 실행
+  const container = containerRef.current;
+
+  if (container) {
+    // wheel 이벤트 핸들러 등록
+    const handleWheel = (event) => {
+      if (event.deltaY > 0) {
+        // 마우스 휠을 내릴 때 추가 데이터를 가져온다.
+        handleScroll();
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel);
+
+    // 리사이즈 이벤트 핸들러 등록
+    handleResize();  
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleResize);
   
   return () => {
+    container.removeEventListener('wheel', handleWheel);
     window.removeEventListener('scroll', handleScroll);
     window.removeEventListener('resize', handleResize);
   };
-}, []);
+}}, [window.innerWidth, visibleItems, handleScroll]);
 
-
-
-
+// console.log(selectedMenu)
 
   return (
 
-  <Section>
+  <Section  ref={containerRef}>
     {error ? (
       <p>Oh no, there was an error</p>
     ) : isLoading || isFetching ? (
-      <p>Loading...</p>
+      <Loading />
     ) : data ? (
       
-      <Wrapper>
+      <Wrapper >
       {data.slice(0, visibleItems).map((product) => (
         // 상품 데이터 배열에서 보여줄 개수만큼 슬라이싱하여 렌더링
         

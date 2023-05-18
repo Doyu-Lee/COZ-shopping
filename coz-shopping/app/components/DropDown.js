@@ -1,10 +1,37 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-
 import styled from "styled-components";
 import useDetectClose from "../hooks/useDetectClose";
 import { useGetProductByCountQuery } from "../redux/productApi"
+
+export default function DropdownMenu () {
+  const [DropDownIsOpen, ImgRef, DropDownHandler] = useDetectClose();
+  const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
+
+  return (
+    <div>
+      {error || isLoading || isFetching ? (<p></p>) : data ? (
+
+        <DropdownContainer ref={ImgRef} >
+
+          <Image onClick={DropDownHandler} src="/햄버거 아이콘.svg" width={34} height={24} alt="햄버거 메뉴 드롭다운 버튼" className="transition-all duration-300 hover:scale-110 transform hover:cursor-pointer" />
+          
+          <Menu className={ DropDownIsOpen ? "isdropped" : null }>
+          <div className="hover:cursor-default mt-4">{`OOO `}님, 안녕하세요!</div>
+            <Ul>
+            {/* 해결 요망 : "/상품 아이콘.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. */}
+              <Link href="/product/list" onClick={DropDownHandler}><li className='flex mr-2 hover:text-myBlue hover:font-bold transition-all ease-in-out'><Image className='mr-3' src="/상품 아이콘.svg" width={20} height={20} alt="logo" />상품리스트 페이지</li></Link> 
+              <Link href="/bookmark" onClick={DropDownHandler}><li className='flex mr-2 hover:text-myBlue hover:font-bold transition-all ease-in-out'><Image className='mr-3' src="/북마크 아이콘.svg" width={20} height={20} alt="logo" />북마크 페이지</li></Link>
+            </Ul>
+          </Menu>
+
+        </DropdownContainer>
+
+      ) : null}
+    </div>
+  );
+};
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -46,44 +73,13 @@ const Menu = styled.div.attrs( () => ({role: 'dropdown-menu'}) )`
       visibility: visible;
       transform: translate(-70%, -20px);
     };
-
-    
 `;
 
 const Ul = styled.ul`
-margin-top: 18px;
+  margin-top: 18px;
   li:first-child {
     margin-bottom: 15px;
   }
 `;
-
-export default function DropdownMenu () {
-  const [DropDownIsOpen, ImgRef, DropDownHandler] = useDetectClose();
-  const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
-
-  return (
-    <div>
-      {error || isLoading || isFetching ? (<p></p>) : data ? (
-
-        <DropdownContainer ref={ImgRef} >
-
-          <Image onClick={DropDownHandler} src="/햄버거 아이콘.svg" width={34} height={24} alt="햄버거 메뉴 드롭다운 버튼" className="transition-all duration-300 hover:scale-110 transform hover:cursor-pointer" />
-          
-          <Menu className={ DropDownIsOpen ? "isdropped" : null }>
-          <div className="hover:cursor-default mt-4">{`OOO `}님, 안녕하세요!</div>
-            <Ul>
-            {/* 해결 요망 : "/상품 아이콘.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. */}
-              <Link href="/product/list" onClick={DropDownHandler}><li className='flex mr-2 hover:text-myBlue hover:font-bold transition-all ease-in-out'><Image className='mr-3' src="/상품 아이콘.svg" width={20} height={20} alt="logo" />상품리스트 페이지</li></Link> 
-              <Link href="/bookmark" onClick={DropDownHandler}><li className='flex mr-2 hover:text-myBlue hover:font-bold transition-all ease-in-out'><Image className='mr-3' src="/북마크 아이콘.svg" width={20} height={20} alt="logo" />북마크 페이지</li></Link>
-            </Ul>
-          </Menu>
-
-        </DropdownContainer>
-
-      ) : null}
-    </div>
-  );
-};
-
 
 
