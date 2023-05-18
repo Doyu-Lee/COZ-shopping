@@ -1,8 +1,25 @@
 "use client"
 
-import { useState } from 'react';
 import styled from 'styled-components';
 import BookmarkStar from "./BookmarkStar"
+
+export default function Modal ({openModalHandler, isOpen, title, img ,id}) {
+  return (
+    <Container>
+        {isOpen === true ? 
+          <ModalBackdrop onClick={openModalHandler}>
+          <ModalView src={img} className={isOpen ? 'isOpen' : ''}  onClick={(e) => e.stopPropagation()}>
+              <div onClick={openModalHandler} className='close-btn'>&times;</div>
+              
+              <div className='titleWrap'>
+                <BookmarkStar title={title} id={id} />
+                <div className='desc'>{title}</div>
+              </div>
+          </ModalView>
+        </ModalBackdrop> : null}
+      </Container>
+  );
+};
 
 export const Container = styled.div`
   transition: all 1s ease-in-out;
@@ -20,9 +37,7 @@ export const ModalBackdrop = styled.div`
   place-items: center;
 `;
 
-
 export const ModalView = styled.div.attrs(props => ({
-  // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
   role: 'dialog',
   style: {
     backgroundImage: `url(${props.src})`,
@@ -66,6 +81,7 @@ export const ModalView = styled.div.attrs(props => ({
       text-align: right;
       color: white;
     }
+    
     > div > div.desc {
       /* border: 1px solid bisque; */
       font-size: 1.3rem;
@@ -75,22 +91,3 @@ export const ModalView = styled.div.attrs(props => ({
       text-shadow: 1px 1px 4.5px rgba(0, 0, 0, 0.3);
     }
 `;
-
-
-export default function Modal ({openModalHandler, isOpen, title, img ,id}) {
-  return (
-    <Container>
-        {isOpen === true ? 
-          <ModalBackdrop onClick={openModalHandler}>
-          <ModalView src={img} className={isOpen ? 'isOpen' : ''}  onClick={(e) => e.stopPropagation()}>
-              <div onClick={openModalHandler} className='close-btn'>&times;</div>
-              
-              <div className='titleWrap'>
-                <BookmarkStar title={title} id={id} />
-                <div className='desc'>{title}</div>
-              </div>
-          </ModalView>
-        </ModalBackdrop> : null}
-      </Container>
-  );
-};

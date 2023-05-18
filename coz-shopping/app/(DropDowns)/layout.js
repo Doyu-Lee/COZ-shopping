@@ -66,7 +66,7 @@ const Main = styled.main`
   flex: 1;
 `;
 
-export default function Category({ children }) {
+export default function Category({ children, ...pageProps }) {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null);
@@ -88,9 +88,9 @@ export default function Category({ children }) {
     <Section>
       <div className="flex justify-center items-center mt-6 mb-6">
 
-        <MenuBox className={`flex flex-col justify-center items-center ${selectedMenu === 전체 ? 'selected' : ''}`} >
+        <MenuBox onClick={() => handleTitleClick(전체)}  className={`flex flex-col justify-center items-center ${selectedMenu === 전체 ? 'selected' : ''}`} >
           <ImageWrapper><StyledImage isHovered={hoveredMenu===전체 ? 'isHovered' : null} src="/전체.png" width={82} height={82} alt="전체" /></ImageWrapper>
-          <Title onClick={() => handleTitleClick(전체)} 
+          <Title 
           onMouseEnter={()=>handleTitleHover(전체)} onMouseLeave={handleTitleLeave}>전체</Title>
         </MenuBox>
 
@@ -120,7 +120,9 @@ export default function Category({ children }) {
 
       </div>
       <Main>
-        {children}
+          {
+            React.cloneElement(children, {pageProps: selectedMenu}, null)
+          }
       </Main>    
       </Section>
 

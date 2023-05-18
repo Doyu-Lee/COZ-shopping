@@ -3,7 +3,6 @@
 import PageList from "../../components/PageList"
 import styled from "styled-components";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Loading from "../../components/Loading"
 import { useSelector } from "react-redux";
 import EmptyBookmark from "../../components/EmptyBookmark"
 
@@ -68,10 +67,7 @@ const handleResize = () => {
   } else {
     newLoadMoreItemCount = 8; // 기본값 설정
   }
-
     setLoadMoreItemCount(newLoadMoreItemCount);
-
-
   }
 
 

@@ -13,7 +13,7 @@ export default function Header() {
         </Link>
       </div>
 
-        <DropdownMenu />
+      <DropdownMenu />
 
     </header>
   )

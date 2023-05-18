@@ -1,13 +1,5 @@
 "use client"
-
 import styled from 'styled-components';
-
-const FooterContainer = styled.footer`
-  position: fixed;
-  background-color: white;
-  bottom: 0;
-  width: 100%;
-`;
 
 export default function Footer() {
   return (
@@ -17,3 +9,10 @@ export default function Footer() {
     </FooterContainer>
   )
 }
+
+const FooterContainer = styled.footer`
+  position: fixed;
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+`;

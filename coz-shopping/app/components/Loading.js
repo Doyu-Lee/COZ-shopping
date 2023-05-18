@@ -3,6 +3,15 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
+// 로딩 컴포넌트
+export default function Loading () {
+  return (
+  <LoadingContainer>
+    <LoadingSpinner />
+  </LoadingContainer>
+  )
+  };
+
 // 로딩 애니메이션 키프레임 정의
 const rotate = keyframes`
   0% {
@@ -15,7 +24,6 @@ const rotate = keyframes`
 
 // 로딩 컴포넌트 스타일 정의
 const LoadingContainer = styled.div`
-/* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,13 +39,3 @@ const LoadingSpinner = styled.div`
   border-radius: 50%;
   animation: ${rotate} 1s ease-in-out infinite;
 `;
-
-// 로딩 컴포넌트
-export default function Loading () {
-  return (
-  <LoadingContainer>
-    <LoadingSpinner />
-  </LoadingContainer>
-  )
-  };
-
