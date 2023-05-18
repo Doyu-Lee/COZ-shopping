@@ -7,6 +7,41 @@ import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "../redux/productApi"
 import { useAppDispatch } from "../redux/hooks";
 
+export default function BookmarkStar ({title, StarRef, id}) {
+  const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
+  const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
+  const dispatch = useAppDispatch();
+
+  const notify = (message, dismissTime = 3000, id) => {
+    dispatch(enqueue(message, dismissTime, id))
+    setTimeout(() => {dispatch(dequeue())}, dismissTime)
+  }
+
+  let isBookmarked;
+  const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.value.id === id);
+
+  if (bookMarkedTargetItem)  { isBookmarked  = bookMarkedTargetItem.isBookmarked; }
+
+  const handleBookmarkBtn = (id) => { 
+    if (!bookMarkedTargetItem) { 
+      const targetItem = data.find((product) => product.id === id);  
+      dispatch(addBookMarkedProducts(targetItem));
+      notify({message: '북마크에 추가되었습니다.', dismissTime: 2000, id: id})
+    } else {
+      dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+      notify({message: '북마크에 삭제되었습니다.', dismissTime: 2000});
+    }
+  };
+
+  return (
+    <Img src={isBookmarked ? "/북마크별on.svg" : "/북마크-별표off.svg"}
+      onClick={(e) => { handleBookmarkBtn(id) }}
+      className={`${title ? "modal" : ""} ${isBookmarked ? "active" : "inactive"}`}
+      alt="북마크" ref={StarRef}
+    />
+  )
+}
+
 const pulse = keyframes`
   0% {
     transform: scale(0.95);
@@ -58,39 +93,3 @@ const Img = styled.img`
     animation: ${inactive} 0.2s linear; /* 클릭 후 약간 커졌다 다시 원래 크기로 돌아가는 애니메이션 효과 */
   }
 `
-
-export default function BookmarkStar ({title, StarRef, id}) {
-  const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
-  const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
-  const dispatch = useAppDispatch();
-
-  const notify = (message, dismissTime = 3000, id) => {
-    dispatch(enqueue(message, dismissTime, id))
-    setTimeout(() => {dispatch(dequeue())}, dismissTime)
-  }
-
-  let isBookmarked;
-  const bookMarkedTargetItem = bookMarkedProducts.find((product) => product.value.id === id);
-
-  if (bookMarkedTargetItem)  { isBookmarked  = bookMarkedTargetItem.isBookmarked; }
-
-  const handleBookmarkBtn = (id) => { 
-    if (!bookMarkedTargetItem) { 
-      const targetItem = data.find((product) => product.id === id);  
-      dispatch(addBookMarkedProducts(targetItem));
-      notify({message: '북마크에 추가되었습니다.', dismissTime: 2000, id: id})
-    } else {
-      dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
-      notify({message: '북마크에 삭제되었습니다.', dismissTime: 2000});
-    }
-  };
-
-  return (
-    <Img src={isBookmarked ? "/북마크별on.svg" : "/북마크-별표off.svg"}
-      onClick={(e) => { handleBookmarkBtn(id) }}
-      className={`${title ? "modal" : ""} ${isBookmarked ? "active" : "inactive"}`}
-      alt="북마크" ref={StarRef}
-    />
-  )
-}
-
