@@ -62,7 +62,7 @@ const Menu = styled.div.attrs( () => ({role: 'dropdown-menu'}) )`
     position: absolute;
     top: -4.5%;
     left: 73%;
-    filter: drop-shadow(11px 11px 11px rgba(0, 0, 0, 0.4));
+    /* filter: drop-shadow(11px 11px 11px rgba(0, 0, 0, 0.4)); */
     border: 12px solid transparent;
     border-top-width: 0;
     border-bottom-color: white; 

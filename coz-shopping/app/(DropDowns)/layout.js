@@ -51,7 +51,7 @@ border-bottom: 2px solid transparent;
   color: orange;
   }
 
-@media (max-width: 400px) {
+@media (max-width: 460px) {
   display: none;
   }
 `;

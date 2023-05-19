@@ -6,31 +6,6 @@ import { useGetProductsQuery } from "../../../redux/productApi"
 import { useState, useEffect, useRef, useCallback } from "react";
 import Loading from "../../../components/Loading"
 
-const Wrapper = styled.div`
-/* border: 1px solid red; */
-  width: 100%;
-  overflow: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: first baseline;
-  padding: 0 0 0 7%;
-  margin-bottom: 5%;
-
-  @media (max-width: 1000px) {
-  padding: 0 0 0 2%;
-  }
-  @media (max-width: 700px) {
-    padding: 0 0 0 6%;
-  }
-  @media (max-width: 400px) {
-    padding: 0;
-  }
-`
-
-const Section = styled.section`
-width: 100%;
-/* border: 1px solid green; */
-`
 
 export default function Product({selectedMenu}) {
 
@@ -69,8 +44,6 @@ const handleResize = () => {
   }
 
     setLoadMoreItemCount(newLoadMoreItemCount);
-
-
   }
 
 
@@ -101,8 +74,6 @@ useEffect(() => {
   };
 }}, [window.innerWidth, visibleItems, handleScroll]);
 
-// console.log(selectedMenu)
-
   return (
 
   <Section  ref={containerRef}>
@@ -115,8 +86,6 @@ useEffect(() => {
       <Wrapper >
       {data.slice(0, visibleItems).map((product) => (
         // 상품 데이터 배열에서 보여줄 개수만큼 슬라이싱하여 렌더링
-        
-  
         <PageList key={product.id} product={product} />
       ))}
       </Wrapper>
@@ -124,3 +93,28 @@ useEffect(() => {
   </Section>
   )
 }
+
+const Wrapper = styled.div`
+/* border: 1px solid red; */
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: first baseline;
+  padding: 0 0 0 7%;
+  margin-bottom: 5%;
+
+  @media (max-width: 1000px) {
+  padding: 0 0 0 2%;
+  }
+  @media (max-width: 700px) {
+    padding: 0 0 0 6%;
+  }
+  @media (max-width: 400px) {
+    padding: 0;
+  }
+`
+
+const Section = styled.section`
+width: 100%;
+`
