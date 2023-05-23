@@ -15,9 +15,9 @@ export default function NotificationCenter() {
   return (
       <Container>
         { toast.length ? 
-          toast.map((n) => (
-          <Toast key={n.index} text={n.message} dismissTime={n.dismissTime} />
-        )) : null}
+          toast.map((n) => 
+          <Toast key={n.id} text={n.message} dismissTime={n.dismissTime} id={n.id}/>
+          ) : null}
       </Container>
   );
 }

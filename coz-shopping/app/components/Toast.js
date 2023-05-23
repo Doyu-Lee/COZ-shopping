@@ -1,10 +1,19 @@
 "use client"
-import styled, { keyframes } from "styled-components";
+import styled, { CSS, keyframes } from "styled-components";
+import { useEffect, useState } from "react";
 
-export default function Toast({ text, id }) {
+export default function Toast({ text, dismissTime, id=undefined }) {
+  const [isFading, setIsFading] = useState(false);
+  
+  useEffect(() => {
+    let mounted = true;
+    setTimeout(() => { if (mounted) {setIsFading(true);}
+    }, dismissTime - 500);
+    return () => {mounted = false;};
+  }, []);
 
   return (
-    <MessageContainer key={id}>
+    <MessageContainer className={`${isFading ? 'fadeOut' : ''}` }>  
         <h4 className="text-myBlue">
           {text}
         </h4>
@@ -23,6 +32,23 @@ const toastIn = keyframes`
   }
 `
 
+const toastOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+
+  }
+  /* 5% {
+    opacity: 0.7;
+    transform: translateX(-3%);
+  } */
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+    display: hidden;
+  }
+  `
+
 const MessageContainer = styled.div`
     font-size: 1rem;
     z-index: 999999;
@@ -35,7 +61,7 @@ const MessageContainer = styled.div`
     background-color: white;
     opacity: 0.8;
     font-weight: 600;
-    transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out ;
 
     height: 50px;
     width: 90%;
@@ -43,4 +69,8 @@ const MessageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.fadeOut {
+      animation: ${toastOut} 2s linear forwards;
+    }
 `

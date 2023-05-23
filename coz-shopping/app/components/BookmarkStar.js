@@ -6,6 +6,7 @@ import { enqueue, dequeue } from "../redux/ToastReducer";
 import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "../redux/productApi"
 import { useAppDispatch } from "../redux/hooks";
+import shortid from "shortid"
 
 export default function BookmarkStar ({title, StarRef, id}) {
   const bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
@@ -26,10 +27,10 @@ export default function BookmarkStar ({title, StarRef, id}) {
     if (!bookMarkedTargetItem) { 
       const targetItem = data.find((product) => product.id === id);  
       dispatch(addBookMarkedProducts(targetItem));
-      notify({message: '북마크에 추가되었습니다.', dismissTime: 2000, id: id})
+      notify({message: '북마크에 추가되었습니다.', dismissTime: 2000, id: shortid.generate()})
     } else {
       dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
-      notify({message: '북마크에 삭제되었습니다.', dismissTime: 2000});
+      notify({message: '북마크에 삭제되었습니다.', dismissTime: 2000, id: shortid.generate()});
     }
   };
 

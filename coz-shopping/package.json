@@ -19,6 +19,7 @@
     "react-dom": "18.2.0",
     "react-lazy-load-image-component": "^1.5.6",
     "react-redux": "^8.0.5",
+    "shortid": "^2.2.16",
     "styled-components": "^6.0.0-rc.1",
     "tailwindcss": "3.3.2",
     "use-local-storage": "^3.0.0"
