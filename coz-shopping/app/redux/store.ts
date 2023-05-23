@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { productApi } from "./productApi";
-import bookMarkedProducts from "./bookmarkReducer"
-import toastReducer from "./ToastReducer"
+import bookMarkedProducts from "./bookmarkReducer";
+import toastReducer from "./ToastReducer";
 
 export const store = configureStore({
   reducer: {

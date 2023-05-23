@@ -1,22 +1,25 @@
-"use client"
+"use client";
 import styled, { CSS, keyframes } from "styled-components";
 import { useEffect, useState } from "react";
 
-export default function Toast({ text, dismissTime, id=undefined }) {
+export default function Toast({ text, dismissTime, id = undefined }) {
   const [isFading, setIsFading] = useState(false);
-  
+
   useEffect(() => {
     let mounted = true;
-    setTimeout(() => { if (mounted) {setIsFading(true);}
+    setTimeout(() => {
+      if (mounted) {
+        setIsFading(true);
+      }
     }, dismissTime - 500);
-    return () => {mounted = false;};
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
-    <MessageContainer className={`${isFading ? 'fadeOut' : ''}` }>  
-        <h4 className="text-myBlue">
-          {text}
-        </h4>
+    <MessageContainer className={`${isFading ? "fadeOut" : ""}`}>
+      <h4 className="text-myBlue">{text}</h4>
     </MessageContainer>
   );
 }
@@ -30,7 +33,7 @@ const toastIn = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`
+`;
 
 const toastOut = keyframes`
   0% {
@@ -47,30 +50,30 @@ const toastOut = keyframes`
     transform: translateX(100%);
     display: hidden;
   }
-  `
+  `;
 
 const MessageContainer = styled.div`
-    font-size: 1rem;
-    z-index: 999999;
-    right: 10px;
-    margin-bottom: 10px;
+  font-size: 1rem;
+  z-index: 999999;
+  right: 10px;
+  margin-bottom: 10px;
 
-    animation: ${toastIn} 0.3s linear;
-    border-radius: 20px;
-    box-shadow: 0 0 8px #412dd4;
-    background-color: white;
-    opacity: 0.8;
-    font-weight: 600;
-    transition: all 2s ease-in-out ;
+  animation: ${toastIn} 0.3s linear;
+  border-radius: 20px;
+  box-shadow: 0 0 8px #412dd4;
+  background-color: white;
+  opacity: 0.8;
+  font-weight: 600;
+  transition: all 2s ease-in-out;
 
-    height: 50px;
-    width: 90%;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 50px;
+  width: 90%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &.fadeOut {
-      animation: ${toastOut} 2s linear forwards;
-    }
-`
+  &.fadeOut {
+    animation: ${toastOut} 2s linear forwards;
+  }
+`;

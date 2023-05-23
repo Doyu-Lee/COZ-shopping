@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const productApi = createApi({
   reducerPath: "productApi",
   refetchOnFocus: true,
@@ -11,8 +10,8 @@ export const productApi = createApi({
     getProducts: builder.query({
       query: () => "products",
     }),
-    getProductByCount: builder.query ({
-      query:  counter  => `products?count=${counter}`,
+    getProductByCount: builder.query({
+      query: (counter) => `products?count=${counter}`,
     }),
   }),
 });
