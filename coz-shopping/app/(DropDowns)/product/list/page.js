@@ -5,11 +5,14 @@ import styled from "styled-components";
 import { useGetProductsQuery } from "../../../redux/productApi"
 import { useState, useEffect, useRef, useCallback } from "react";
 import Loading from "../../../components/Loading"
+import Category from "../../../components/Category"
 
+export default function Product() {
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  let { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
 
-export default function Product({selectedMenu}) {
+  if (selectedMenu && selectedMenu !== '전체') { data = data.filter((item) => item.type === selectedMenu)}
 
-const { data, error, isLoading, isFetching  } = useGetProductsQuery(null);
 const containerRef = useRef(null);
 
 // 처음에 보여줄 상품 개수와 스크롤 할 때마다 추가로 보여줄 상품 개수
@@ -77,6 +80,7 @@ useEffect(() => {
   return (
 
   <Section  ref={containerRef}>
+    <Category selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu}/>
     {error ? (
       <p>Oh no, there was an error</p>
     ) : isLoading || isFetching ? (
