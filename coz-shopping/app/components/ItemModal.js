@@ -53,8 +53,13 @@ export const ModalView = styled.div.attrs((props) => ({
   },
 }))`
   border-radius: 10px;
+
+  @media (max-width: 1100px) {
+    width: 80%;
+  }
+
   width: 60%;
-  height: 50%;
+  height: 70%;
   filter: drop-shadow(0px 0px 11px rgba(0, 0, 0, 0.3));
   overflow: hidden;
   object-fit: cover;

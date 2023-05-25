@@ -38,14 +38,14 @@ export default function BookmarkStar({ title, StarRef, id }) {
       dispatch(addBookMarkedProducts(targetItem));
       notify({
         message: "북마크에 추가되었습니다.",
-        dismissTime: 2000,
+        dismissTime: 1500,
         id: shortid.generate(),
       });
     } else {
       dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
       notify({
-        message: "북마크에 삭제되었습니다.",
-        dismissTime: 2000,
+        message: "북마크에서 제거되었습니다.",
+        dismissTime: 1500,
         id: shortid.generate(),
       });
     }

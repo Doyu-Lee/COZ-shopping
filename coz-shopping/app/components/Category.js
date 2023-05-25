@@ -48,7 +48,7 @@ export default function Category({ selectedMenu, setSelectedMenu }) {
             />
           </ImageWrapper>
           <Title
-            onMouseEnter={() => handleTitleHover(cate)}
+            onMouseEnter={() => handleTitleHover(cate.en)}
             onMouseLeave={handleTitleLeave}
             className={selectedMenu === cate.en ? "selected" : ""}
           >

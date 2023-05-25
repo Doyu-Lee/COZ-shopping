@@ -2,7 +2,7 @@
 import styled, { CSS, keyframes } from "styled-components";
 import { useEffect, useState } from "react";
 
-export default function Toast({ text, dismissTime, id = undefined }) {
+export default function Toast({ text, dismissTime }) {
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function Toast({ text, dismissTime, id = undefined }) {
       if (mounted) {
         setIsFading(true);
       }
-    }, dismissTime - 500);
+    }, dismissTime);
     return () => {
       mounted = false;
     };

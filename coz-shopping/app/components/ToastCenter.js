@@ -22,7 +22,6 @@ export default function NotificationCenter() {
               key={n.id}
               text={n.message}
               dismissTime={n.dismissTime}
-              id={n.id}
             />
           ))
         : null}
