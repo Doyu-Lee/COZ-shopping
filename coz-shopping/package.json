@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "token": "token-transformer app/tokens/tokens.json app/tokens/global.json global --expandTypography=true --expandShadow=true --expandComposition=true --expandBorder=true"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "token": "token-transformer app/tokens/tokens.json app/tokens/global.json global --expandTypography=true --expandShadow=true --expandComposition=true --expandBorder=true"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
