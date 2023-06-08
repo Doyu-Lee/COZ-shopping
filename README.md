@@ -6,6 +6,8 @@
 
 <br>
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FDoyu-Lee%2FCOZ-shopping&count_bg=%23D398DA&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 - **기간 :** 2023.5.13. ~ _(진행 중)_
 - **프로젝트 요구사항 분석 및 플래닝** :
   - 페어와 함께 이슈 티켓을 생성하고 플래닝 포커를 통해 스프린트 범위를 설정했습니다.
