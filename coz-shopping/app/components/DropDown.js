@@ -1,20 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import styled from "styled-components";
+import { styled, css } from "styled-components";
 import useDetectClose from "../hooks/useDetectClose";
-import { useGetProductByCountQuery } from "../redux/productApi";
 
 export default function DropdownMenu() {
-  const [DropDownIsOpen, ImgRef, DropDownHandler] = useDetectClose();
-  const { isLoading, isFetching, data, error } = useGetProductByCountQuery(4);
-
+  const [DropDownIsOpen, Ref, DropDownHandler] = useDetectClose();
   return (
     <div>
-      {error || isLoading || isFetching ? (
-        <p></p>
-      ) : data ? (
-        <DropdownContainer ref={ImgRef}>
+        <DropdownContainer ref={Ref}>
           <Image
             onClick={DropDownHandler}
             src="/햄버거 아이콘.svg"
@@ -24,9 +18,9 @@ export default function DropdownMenu() {
             className="transition-all duration-300 hover:scale-110 transform hover:cursor-pointer"
           />
 
-          <Menu className={DropDownIsOpen ? "isdropped" : null}>
+<Menu {...(DropDownIsOpen ? { isdropped: "true" } : {})} >
             <div className="hover:cursor-default mt-4">
-              {`OOO `}님, 안녕하세요!
+              {`Doyu`} 님, 안녕하세요!
             </div>
             <Ul>
               {/* 해결 요망 : "/상품 아이콘.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. */}
@@ -57,7 +51,6 @@ export default function DropdownMenu() {
             </Ul>
           </Menu>
         </DropdownContainer>
-      ) : null}
     </div>
   );
 }
@@ -96,12 +89,18 @@ const Menu = styled.div.attrs(() => ({ role: "dropdown-menu" }))`
     border-top-width: 0;
     border-bottom-color: white;
   }
-
-  &.isdropped {
+  ${( {isdropped} ) =>
+    isdropped &&
+    css`
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-70%, -20px);
+    `};
+  /* &.isDropped {
     opacity: 1;
     visibility: visible;
     transform: translate(-70%, -20px);
-  }
+  } */
 `;
 
 const Ul = styled.ul`
