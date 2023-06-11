@@ -1,5 +1,5 @@
-"use client"
-import styled from 'styled-components';
+"use client";
+import styled from "styled-components";
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mb-0.5"> 개인정보 처리방침 | 이용 약관 </div>
       <div> All rights reserved @ Doyu </div>
     </FooterContainer>
-  )
+  );
 }
 
 const FooterContainer = styled.footer`

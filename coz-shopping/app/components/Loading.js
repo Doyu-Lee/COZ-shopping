@@ -1,16 +1,15 @@
-"use client"
+"use client";
 
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled, { keyframes } from "styled-components";
 
-// 로딩 컴포넌트
-export default function Loading () {
+export default function Loading() {
   return (
-  <LoadingContainer>
-    <LoadingSpinner />
-  </LoadingContainer>
-  )
-  };
+    <LoadingContainer>
+      <LoadingSpinner />
+    </LoadingContainer>
+  );
+}
 
 // 로딩 애니메이션 키프레임 정의
 const rotate = keyframes`
@@ -35,7 +34,7 @@ const LoadingSpinner = styled.div`
   width: 60px;
   height: 60px;
   border: 11px solid rgba(0, 0, 0, 0.2);
-  border-left-color: #00A8FF;
+  border-left-color: #00a8ff;
   border-radius: 50%;
   animation: ${rotate} 1s ease-in-out infinite;
 `;
