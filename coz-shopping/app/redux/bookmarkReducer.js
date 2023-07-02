@@ -1,11 +1,9 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
-let initialState = null;
-if (typeof window !== "undefined") {
-  initialState =
-    typeof window !== "undefined" && localStorage.getItem("bookmarkedProducts")
-      ? JSON.parse(localStorage.getItem("bookmarkedProducts"))
-      : null;
-}
+const initialState =
+  typeof window !== "undefined" && localStorage.getItem("bookmarkedProducts")
+    ? JSON.parse(localStorage.getItem("bookmarkedProducts"))
+    : null;
 
 export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",

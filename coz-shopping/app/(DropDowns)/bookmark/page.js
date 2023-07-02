@@ -67,7 +67,7 @@ export default function Product() {
         window.removeEventListener("resize", handleResize);
       };
     }
-  }, [window.innerWidth, visibleItems, handleScroll]);
+  }, [visibleItems, handleScroll,handleResize]);
 
   let bookMarkedProducts = useSelector((store) => store.bookMarkedProducts);
 

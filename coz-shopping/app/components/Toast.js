@@ -15,7 +15,7 @@ export default function Toast({ text, dismissTime }) {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [dismissTime]);
 
   return (
     <MessageContainer className={`${isFading ? "fadeOut" : ""}`}>
