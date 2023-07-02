@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = typeof window !== 'undefined' && localStorage.getItem("bookmarkedProducts") ? JSON.parse(localStorage.getItem("bookmarkedProducts")) : null;
+let initialState;
+if (typeof window !== "undefined") {
+  initialState =
+    typeof window !== "undefined" && localStorage.getItem("bookmarkedProducts")
+      ? JSON.parse(localStorage.getItem("bookmarkedProducts"))
+      : null;
+}
 
 export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
