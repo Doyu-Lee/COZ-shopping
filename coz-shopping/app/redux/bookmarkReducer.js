@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-let initialState;
+let initialState = null;
 if (typeof window !== "undefined") {
   initialState =
     typeof window !== "undefined" && localStorage.getItem("bookmarkedProducts")
