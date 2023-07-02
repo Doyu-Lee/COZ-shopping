@@ -16,4 +16,5 @@ export const productApi = createApi({
   }),
 });
 
+// By camelCase: `use` + {{KEYS_OF_ENDPOINT_DEFINITION}} + {{ENDPOINT_TYPE:`query | `mutation`}}
 export const { useGetProductsQuery, useGetProductByCountQuery } = productApi;

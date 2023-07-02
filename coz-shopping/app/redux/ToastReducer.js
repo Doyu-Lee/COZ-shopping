@@ -8,12 +8,11 @@ export const toastReducer = createSlice({
   reducers: {
     enqueue: (state, action) => {
       return {
-        ...state,
         notifications: [...state.notifications, action.payload],
       };
     },
     dequeue: (state) => {
-      return { ...state, notifications: state.notifications.slice(1) };
+      return { notifications: state.notifications.slice(1) };
     },
   },
 });

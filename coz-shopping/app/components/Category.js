@@ -40,7 +40,7 @@ export default function Category({ selectedMenu, setSelectedMenu }) {
         <MenuBox key={cate.en} onClick={() => handleTitleClick(cate.en)}>
           <ImageWrapper>
             <StyledImage
-              isHovered={hoveredMenu === cate.en ? "isHovered" : null}
+              ishovered={hoveredMenu === cate.en ? "isHovered" : null}
               src={`/${cate.en}.png`}
               width={82}
               height={82}
@@ -72,10 +72,10 @@ const Section = styled.section`
 const StyledImage = styled.img`
   transition: transform 0.3s;
 
-  ${({ isHovered }) =>
-    isHovered &&
+  ${({ ishovered }) =>
+    ishovered &&
     css`
-      transform: ${({ isHovered }) => (isHovered ? "scale(1.1)" : "scale(1)")};
+      transform: ${({ ishovered }) => (ishovered ? "scale(1.1)" : "scale(1)")};
     `}
 
   &:hover {

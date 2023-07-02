@@ -1,41 +1,44 @@
-import { Button } from './Button';
-
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
+"use client";
+import { Button as Star } from "./Button";
+import { Provider } from "react-redux";
+import { store } from "../app/redux/store";
 export default {
-  title: 'Example/Button',
-  component: Button,
-  tags: ['autodocs'],
+  title: "Atom/Star",
+  component: Star,
+  tags: ["autodocs"],
+
   argTypes: {
-    backgroundColor: {
-      control: 'color',
-    },
+    onClick: { action: "clicked" },
+  },
+  decorators: [
+    (Story) => (
+      <Provider store={store}>
+        <div
+          style={{
+            width: "30em",
+            height: "20em",
+            margin: "auto",
+            position: "relative",
+            borderRadius: "20px",
+            border: "1px solid lightgray",
+          }}
+        >
+          <Story />
+        </div>
+      </Provider>
+    ),
+  ],
+};
+
+export const BookmarkOn = {
+  args: {
+    isBookmarked: true,
+    onClick: { action: "click button" },
   },
 };
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary = {
+export const BookmarkOff = {
   args: {
-    primary: true,
-    label: 'Button',
-  },
-};
-
-export const Secondary = {
-  args: {
-    label: 'Button',
-  },
-};
-
-export const Large = {
-  args: {
-    size: 'large',
-    label: 'Button',
-  },
-};
-
-export const Small = {
-  args: {
-    size: 'small',
-    label: 'Button',
+    isBookmarked: false,
   },
 };

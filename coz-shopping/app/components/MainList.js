@@ -11,7 +11,7 @@ export default function MainList({ product, isBookmarked }) {
   const StarRef = useRef(null);
 
   const openModalHandler = (e) => {
-    if (StarRef.current && !StarRef.current.contains(e.target))
+    if (!StarRef.current.contains(e.target))
       setIsOpen(!isOpen);
   };
 

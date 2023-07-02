@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = JSON.parse(localStorage.getItem("bookmarkedProducts"));
+const initialState = typeof window !== 'undefined' && localStorage.getItem("bookmarkedProducts") ? JSON.parse(localStorage.getItem("bookmarkedProducts")) : null;
 
 export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
@@ -25,5 +25,5 @@ export const bookMarkedProducts = createSlice({
 });
 
 export const { addBookMarkedProducts, deleteBookMarkedProduct } =
-  bookMarkedProducts.actions;
-export default bookMarkedProducts.reducer;
+  bookMarkedProducts.actions; // createSlice로 생성된 actions를 외부에서 호출할 수 있도록 함
+export default bookMarkedProducts.reducer; // reducer 또한 export 시켜 store에 리듀서를 등록할 수 있도록 함
